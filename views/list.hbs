@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Short-Url</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Index</th>
+        <th>OriginalUrl</th>
+        <th>ShortUrl</th>
+    </tr>
+    <tr>
+        {{#each urlList}}
+            <td>{{urlIdx}}</td>
+            <td>{{url_real}}</td>
+            <td>{{url_short}}</td>
+        {{/each}}
+    </tr>
+</table>
+
+</body>
+</html>

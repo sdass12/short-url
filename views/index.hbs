@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Short-Url</title>
+</head>
+<body>
+<form action="short-url/createShortUrl" method="post" onsubmit="return isSubmit(this);">
+    URL : <input type="text" name="url" value="{{ originalUrl }}">
+    <input type="submit" value="change">
+</form>
+{{ changeUrl }}
+
+<script>
+    function isSubmit(frm) {
+        if(!frm.url.value) {
+            alert("Please input URL");
+            frm.url.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
