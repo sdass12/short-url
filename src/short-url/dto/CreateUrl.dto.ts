@@ -1,6 +1,4 @@
-import {IsNumber, IsOptional, IsString} from 'class-validator';
-
-export class CreateUrlDto {
-    @IsString()
-    readonly url: string;
+export interface CreateUrlDto {
+    url_real: string;
+    url_short?: string;
 }

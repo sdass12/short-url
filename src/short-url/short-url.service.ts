@@ -16,7 +16,13 @@ export class ShortUrlService {
         return this.shortUrlRepository.find();
     }
 
-    create(url: CreateUrlDto) {
-        return url;
+    create(url : string) {
+        let createDto: CreateUrlDto;
+        createDto.url_real = url;
+        createDto.url_short = "S";
+
+        this.shortUrlRepository.create(createDto);
+
+        return createDto.url_short;
     }
 }

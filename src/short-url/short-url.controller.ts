@@ -14,15 +14,14 @@ export class ShortUrlController {
 
     @Post('createShortUrl')
     @Render('index')
-    create(@Body() url: CreateUrlDto) {
-        return {changeUrl : this.shortUrlService.create(url).url, originalUrl : url.url};
+    create(@Body() url: string) {
+        return {changeUrl : this.shortUrlService.create(url), originalUrl : url};
     }
 
     @Get('list')
     @Render('list')
     async getAll() {
         const ret = await this.shortUrlService.getAll()
-        console.log(ret);
         return {urlList: ret}
     }
 }
