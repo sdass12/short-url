@@ -14,11 +14,15 @@ export class ShortUrlService {
     }
 
 
+    getRealUrl(url: string) {
+        return this.shortUrlRepository.findOne({url_short:url});
+    }
+
     getAll() {
         return this.shortUrlRepository.find();
     }
 
-      create(url: string) {
+    create(url: string) {
         //TODO : 해싱 후 해싱 전 URL과 해싱 후 URL을 각각 DB에 저장하고 반환
         function changeUrl(url) {
             let changeUrl = "http://localhost:3000/";
@@ -38,7 +42,7 @@ export class ShortUrlService {
             const changedUrl = changeUrl(url)
 
             const isThereRow = await this.shortUrlRepository.findOne({url_real: url})
-            if(isThereRow == undefined){
+            if (isThereRow == undefined) {
                 // @ts-ignore
                 await this.shortUrlRepository.save({
                     url_real: url,
