@@ -5,7 +5,7 @@
     <title>Short-Url</title>
 </head>
 <body>
-<form action="short-url/createShortUrl" method="post" onsubmit="return isSubmit(this);">
+<form action="/short-url/createShortUrl" method="post" onsubmit="return isSubmit(this);">
     URL : <input type="text" name="url" value="{{ originalUrl }}">
     <input type="submit" value="change">
 </form>
