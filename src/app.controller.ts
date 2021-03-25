@@ -10,14 +10,14 @@ export class AppController {
     return "Welcome to my ShortUrl API";
   }
 
-  @Get('/:url')
+  @Get(':url')
   redirect(@Param('url') url : string, @Res() res){
-/*
+
       return this.shortUrlService.getRealUrl(url).then(result =>{
           if(result == undefined){
-              return "text";
+              return res.redirect("/short-url")
           }
           return res.redirect(result.url_real);
-      });*/
+      });
   }
 }

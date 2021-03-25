@@ -12,7 +12,7 @@ export class ShortUrlService {
 
 
     getRealUrl(url: string) {
-        return "test";//this.shortUrlRepository.findOne({url_short:url});
+        return this.shortUrlRepository.findOne({url_short:url});
     }
 
     getAll() {
@@ -23,7 +23,7 @@ export class ShortUrlService {
         const shortUrl = require('node-url-shortener');
 
         const saveUrl = async () => {
-             let changedUrl = new Promise(((resolve, reject) => {
+             let getChangedUrl = new Promise(((resolve, reject) => {
                 shortUrl.short(url, function(err, shortenerUrl){
                      resolve(shortenerUrl.replace(/https:\/\/.*\//g,''));
                 });
@@ -34,11 +34,11 @@ export class ShortUrlService {
                 // @ts-ignore
                 await this.shortUrlRepository.save({
                     url_real: url,
-                    url_short: await changedUrl
+                    url_short: await getChangedUrl
                 })
             }
 
-            return changedUrl
+            return "http://localhost:3000//"+await getChangedUrl;
         }
 
         return saveUrl();
