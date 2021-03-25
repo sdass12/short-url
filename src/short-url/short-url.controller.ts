@@ -1,6 +1,5 @@
-import {Body, Controller, Get, Post, Render, Req} from '@nestjs/common';
+import {Body, Controller, Get, Post, Render} from '@nestjs/common';
 import {ShortUrlService} from "./short-url.service";
-import {CreateUrlDto} from "./dto/CreateUrl.dto";
 
 @Controller('short-url')
 export class ShortUrlController {

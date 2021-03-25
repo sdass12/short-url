@@ -1,9 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import {CreateUrlDto} from "./dto/CreateUrl.dto";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ShortUrlEntity} from "./entity/short-url.entity";
 import {Repository} from "typeorm";
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ShortUrlService {
@@ -23,7 +21,6 @@ export class ShortUrlService {
     }
 
     create(url: string) {
-        //TODO : 해싱 후 해싱 전 URL과 해싱 후 URL을 각각 DB에 저장하고 반환
         function changeUrl(url) {
             let changeUrl = "http://localhost:3000/";
             var hash = 0, i, chr;
@@ -31,15 +28,17 @@ export class ShortUrlService {
             for (i = 0; i < url.length; i++) {
                 chr = url.charCodeAt(i);
                 hash = ((hash << 5) - hash) + chr;
-                //hash |= 0; // Convert to 32bit integer
+                hash |= 0; // Convert to 32bit integer
             }
             changeUrl += hash.toString(16);
 
             return changeUrl;
         };
 
+        const shortUrl = require('node-url-shortener');
+
         const saveUrl = async () => {
-            const changedUrl = changeUrl(url)
+            const changedUrl = shortUrl.short(url, function(err, url){return url;});
 
             const isThereRow = await this.shortUrlRepository.findOne({url_real: url})
             if (isThereRow == undefined) {
