@@ -1,10 +1,23 @@
-import { Controller, Get } from '@nestjs/common';
+import {Controller, Get, Param, Res} from '@nestjs/common';
+import {ShortUrlService} from "./short-url/short-url.service";
 
-@Controller('')
+@Controller('//')
 export class AppController {
+  constructor(private readonly shortUrlService: ShortUrlService) {}
 
   @Get()
   home(){
     return "Welcome to my ShortUrl API";
+  }
+
+  @Get(':url')
+  redirect(@Param('url') url : string, @Res() res){
+
+      return this.shortUrlService.getRealUrl(url).then(result =>{
+          if(result == undefined){
+              return res.redirect("/short-url")
+          }
+          return res.redirect(result.url_real);
+      });
   }
 }

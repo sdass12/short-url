@@ -5,11 +5,11 @@
     <title>Short-Url</title>
 </head>
 <body>
-<form action="short-url/createShortUrl" method="post" onsubmit="return isSubmit(this);">
+<form action="/short-url/createShortUrl" method="post" onsubmit="return isSubmit(this);">
     URL : <input type="text" name="url" value="{{ originalUrl }}">
     <input type="submit" value="change">
 </form>
-{{ changeUrl }}
+result : <input type="text" value="{{ changeUrl }}" id="result" readonly> <input type="button" onclick="copy()" value="copy">
 
 <script>
     function isSubmit(frm) {
@@ -19,6 +19,21 @@
             return false;
         }
         return true;
+    }
+
+    function copy(){
+        const result = document.getElementById("result").value;
+        if(!result){
+            alert("There isn't result");
+        }else{
+            const tempElem = document.createElement('textarea');
+            tempElem.value = result;
+            document.body.appendChild(tempElem);
+
+            tempElem.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempElem);
+        }
     }
 </script>
 </body>

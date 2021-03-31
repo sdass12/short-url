@@ -1,6 +1,5 @@
 import {Body, Controller, Get, Post, Render} from '@nestjs/common';
 import {ShortUrlService} from "./short-url.service";
-import {CreateUrlDto} from "./dto/CreateUrl.dto";
 
 @Controller('short-url')
 export class ShortUrlController {
@@ -14,15 +13,16 @@ export class ShortUrlController {
 
     @Post('createShortUrl')
     @Render('index')
-    create(@Body() url: CreateUrlDto) {
-        return {changeUrl : this.shortUrlService.create(url).url, originalUrl : url.url};
+    create(@Body() req) {
+        return this.shortUrlService.create(req.url).then(result => {
+            return {changeUrl : result, originalUrl : req.url}
+        });
     }
 
     @Get('list')
     @Render('list')
     async getAll() {
         const ret = await this.shortUrlService.getAll()
-        console.log(ret);
         return {urlList: ret}
     }
 }

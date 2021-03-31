@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import {ShortUrlModule} from "./short-url/short-url.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {Connection} from "typeorm";
+import {ShortUrlService} from "./short-url/short-url.service";
+import {ShortUrlEntity} from "./short-url/entity/short-url.entity";
 
 @Module({
   imports: [
@@ -17,10 +19,11 @@ import {Connection} from "typeorm";
         entities: [__dirname+'/**/*.entity{.rs,.js}'],
         synchronize: true,
       }),
-
+      TypeOrmModule.forFeature([ShortUrlEntity])
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [ShortUrlService],
+
 })
 export class AppModule {
     constructor(private readonly connection: Connection) {

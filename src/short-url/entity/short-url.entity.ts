@@ -8,6 +8,6 @@ export class ShortUrlEntity {
     @Column({unique: true, length: 255})
     url_real: string;
 
-    @Column({length: 50})
+    @Column({unique: true, length: 50})
     url_short: string;
 }
